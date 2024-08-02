@@ -3,14 +3,22 @@ require('dotenv').config();
 const Sequelize = require('sequelize');
 
 //set up sequelize to point to our postgres database
-let sequelize = new Sequelize('', '', '', {
-  host: '',
-  dialect: 'postgres',
-  port: 5432,
-  dialectOptions: {
-    ssl: { rejectUnauthorized: false },
+const sequelize = new Sequelize(
+  process.env.DB_DATABASE, // Using the database name from .env
+  process.env.DB_USER,     // Using the user from .env
+  process.env.DB_PASSWORD, // Using the password from .env
+  {
+    host: process.env.DB_HOST, // Using the host from .env
+    dialect: 'postgres',
+    port: 5432,
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false 
+      },
+    },
   }
-});
+);
 
 // Theme model
 
