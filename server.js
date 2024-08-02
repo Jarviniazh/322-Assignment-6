@@ -6,6 +6,10 @@ const app = express();
 const clientSessions = require('client-sessions');
 const HTTP_PORT = process.env.PORT || 8080;
 
+// app.use(express.static('public'));
+app.use(express.static(__dirname + '/public')); //Vercel
+app.set('views', __dirname + '/views');//Vercel
+
 //client sessions middleware
 app.use(
   clientSessions({
@@ -28,7 +32,7 @@ function ensureLogin(req, res, next) {
   }
 }
 
-app.use(express.static('public'));
+
 app.use(express.urlencoded({ extended: true }));
 
 app.set('view engine', 'ejs');
